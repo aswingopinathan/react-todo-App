@@ -5,7 +5,8 @@ function App() {
   const [toDos, setToDos] = useState([])
   // state is empty string initially
   const [toDo, setToDo] = useState('')
-
+  const day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+  const days=new Date().getDay()
   return (
     <div className="app">
       <div className="mainHeading">
@@ -13,7 +14,7 @@ function App() {
       </div>
       <div className="subHeading">
         <br />
-        <h2>Whoop, it's Wednesday 🌝 ☕ </h2>
+        <h2>Whoop, it's {day[days]}🌝 ☕ </h2>
       </div>
       <div className="input">
         {/* new values are added as text and taken for displaying*/}
@@ -41,7 +42,10 @@ function App() {
                   <p>{obj.text}</p>
                 </div>
                 <div className="right">
-                  <i className="fas fa-times"></i>
+                  <i onClick={()=>{
+                    const removeArray = [...toDos].filter(toDo=>obj.id!==toDo.id)
+                    setToDos(removeArray)
+                  }} className="fas fa-times"></i>
                 </div>
               </div>
             )
