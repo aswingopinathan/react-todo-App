@@ -7,6 +7,11 @@ function App() {
   const [toDo, setToDo] = useState('')
   const day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
   const days=new Date().getDay()
+  
+  function setToBlank(){
+    setToDos([...toDos, { id: Date.now(), text: toDo, status: false }])
+    setToDo('')
+  }
   return (
     <div className="app">
       <div className="mainHeading">
@@ -20,7 +25,7 @@ function App() {
         {/* new values are added as text and taken for displaying*/}
         <input value={toDo} onChange={(e) => setToDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
         {/* click function is defined */}
-        <i onClick={() => { setToDos([...toDos, { id: Date.now(), text: toDo, status: false }]) }} className="fas fa-plus"></i>
+        {toDo === '' ? null :<i onClick={setToBlank} className="fas fa-plus"></i>}
       </div>
 
       <div className="todos">
@@ -39,7 +44,7 @@ function App() {
                       return obj2
                     }))
                   }} value={obj.status} type="checkbox" name="" id="" />
-                  <p>{obj.text}</p>
+                  {obj.status ? <p style={{'text-decoration':'line-through'}}>{obj.text}</p>:<p style={{color:'blue'}}>{obj.text}</p>}
                 </div>
                 <div className="right">
                   <i onClick={()=>{
